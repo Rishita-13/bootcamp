@@ -1,0 +1,23 @@
+Input:
+#Creating a chatbot using while loop and else if ladder.
+def simple_chatbot():
+    print("Hello! I am your chatbot. Type 'exit' to end the conversation.")
+    while True:
+        user_input = input("you: ")
+        if user_input.lower() == 'exit':
+            print("chatbot: Goodbye, have a great day!")
+            break
+        elif 'how are you' in user_input.lower():
+            print("chatbot: I'm just a computer program, but thanks for asking!")
+        elif 'name' in user_input.lower():
+            print("chatbot: I'm your chatgpt, your friendly chatbot.")
+            break
+        else:
+            print("chatbot: I'm not sure how to respond to that, ask me something else!")
+
+# Call the function to start the chatbot
+simple_chatbot()
+
+OUTCOME:
+Hello! I am your chatbot. Type 'exit' to end the conversation.
+you: 
