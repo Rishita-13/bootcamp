@@ -21,3 +21,38 @@ simple_chatbot()
 OUTCOME:
 Hello! I am your chatbot. Type 'exit' to end the conversation.
 you: 
+
+
+2. Input:
+import time
+print("Hello, I'm The Hypebeast Bot")
+print("I'm here to help you fine the Hypebeast items you want")
+name = input("What is Your Name?\n")
+time.sleep(1)
+print("Hello "+name)
+time.sleep(1)
+choice = input("So what can i help you find today? I know about Shoes, Hoodies and T-Shirts\n")
+time.sleep(1)
+if "Hoodies" in choice:
+    hoodie = input("Okay, What brand of hoodie are you looking for?\n")
+    if "Supreme" in hoodie:
+        SupremeModel = input("What Kind of Supreme Hoodie are you looking for?\n")
+        if SupremeModel in SupremeHoodie_db():
+                print("You can get them from " + ", Or ".join(shop for shop in SupremeHoodie_db[SupremeModel]))
+        else:
+                        print("Sorry I dont know that model")
+
+    
+    elif "Hera" in hoodie:
+        HeraModel = input("What kind of hera hoodie are you looking for?\n")
+        if HeraModel in HeraHoodie_db():
+            print("You can get them from " + ", Or ".join(shop for shop in HeraHoodie_db[HeraModel]))
+       
+        else:
+                    print("Sorry I dont know that brand")
+else:
+    print("sorry i don't have any information about that")
+OUTCOME:
+Hello, I'm The Hypebeast Bot
+I'm here to help you fine the Hypebeast items you want
+What is Your Name?
