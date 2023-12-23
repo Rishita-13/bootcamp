@@ -1,0 +1,69 @@
+import pandas as pd
+import random
+
+# List of food items and categories
+foods = ['Pizza', 'Burger', 'Salad', 'Pasta', 'Sushi']
+categories = ['Fast Food', 'Healthy', 'Italian', 'Japanese']
+
+# Generating random data for people's food choices
+data = {
+    'Person_ID': [f'P{i:03}' for i in range(1, 21)],
+    'Pizza': [random.choice(categories) for _ in range(20)],
+    'Burger': [random.choice(categories) for _ in range(20)],
+    'Salad': [random.choice(categories) for _ in range(20)],
+    'Pasta': [random.choice(categories) for _ in range(20)],
+    'Sushi': [random.choice(categories) for _ in range(20)]
+}
+
+# Creating the DataFrame
+food_choices_df = pd.DataFrame(data)
+
+# Displaying the DataFrame
+print(food_choices_df)
+# Sort the DataFrame by 'Pizza' column in alphabetical order
+sorted_by_pizza = food_choices_df.sort_values(by='Pizza')
+print(sorted_by_pizza)
+# Sort the DataFrame by 'Burger' column in ascending order and then by 'Salad' column in descending order
+sorted_by_burger_salad = food_choices_df.sort_values(by=['Burger', 'Salad'], ascending=[True, False])
+print(sorted_by_burger_salad)
+# Filtering people who prefer 'Fast Food' for 'Pizza'
+fast_food_pizza_lovers = food_choices_df[food_choices_df['Pizza'] == 'Fast Food']
+print(fast_food_pizza_lovers)
+# Filtering people who prefer 'Healthy' for 'Salad' and 'Italian' for 'Pasta'
+healthy_salad_italian_pasta = food_choices_df[(food_choices_df['Salad'] == 'Healthy') & (food_choices_df['Pasta'] == 'Italian')]
+print(healthy_salad_italian_pasta)
+# Grouping the DataFrame by 'Pizza' column and calculating the count for each category
+pizza_category_counts = food_choices_df.groupby('Pizza').size()
+print(pizza_category_counts)
+# Grouping the DataFrame by 'Pizza' and 'Salad' columns and calculating the count for each category in 'Pasta'
+pasta_category_counts_by_pizza_salad = food_choices_df.groupby(['Pizza', 'Salad'])['Pasta'].value_counts()
+print(pasta_category_counts_by_pizza_salad)
+import matplotlib.pyplot as plt
+
+# Calculate counts of each category for each food item
+category_counts = food_choices_df.apply(pd.Series.value_counts)
+
+# Plotting a bar chart for food category preferences
+category_counts.plot(kind='bar', figsize=(10, 6))
+plt.title('Food Category Preferences')
+plt.xlabel('Category')
+plt.ylabel('Count')
+plt.xticks(rotation=45)
+plt.legend(title='Food Items', bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.tight_layout()
+plt.show()
+# Create subplots for pie charts of each food item's category distribution
+fig, axs = plt.subplots(nrows=2, ncols=3, figsize=(12, 8))
+
+food_items = food_choices_df.columns[1:]  # Excluding 'Person_ID'
+
+for idx, item in enumerate(food_items):
+    row = idx // 3
+    col = idx % 3
+    category_counts[item].plot(kind='pie', ax=axs[row, col], autopct='%1.1f%%', startangle=90)
+    axs[row, col].set_title(f'{item} Categories')
+    axs[row, col].set_ylabel('')
+    axs[row, col].axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle
+
+plt.tight_layout()
+plt.show()
